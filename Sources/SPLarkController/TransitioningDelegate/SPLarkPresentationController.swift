@@ -249,23 +249,13 @@ extension SPLarkPresentationController {
     
     private func updateSnapshot(animated: Bool, completion: ((Bool) -> Void)? = nil) {
         guard let currentSnapshotView = presentingViewController.view.snapshotView(afterScreenUpdates: true) else { return }
-        currentSnapshotView.alpha = 0
+        
+        self.snapshotView?.removeFromSuperview()
         self.snapshotViewContainer.addSubview(currentSnapshotView)
         self.constraints(view: currentSnapshotView, to: self.snapshotViewContainer)
+        self.snapshotView = currentSnapshotView
         self.snapshotView?.layer.cornerRadius = self.cornerRadius
         self.snapshotView?.layer.masksToBounds = true
-        
-        UIView.animate(withDuration: animated ? 0.3 : 0, animations: {
-            self.snapshotView?.alpha = 0
-            currentSnapshotView.alpha = 1
-        }, completion: { success in
-            defer {
-                completion?(success)
-            }
-            guard success else { return }
-            self.snapshotView?.removeFromSuperview()
-            self.snapshotView = currentSnapshotView
-        })
     }
     
     private func constraints(view: UIView, to superView: UIView) {
