@@ -26,7 +26,7 @@ open class SPLarkSettingsController: UIViewController {
     
     public let titleLabel = UILabel()
     let closeButton = SPLarkSettingsCloseButton()
-    let collectionView = SPLarkSettingsCollectionView()
+    public let collectionView = SPLarkSettingsCollectionView()
     
     override open var preferredStatusBarUpdateAnimation: UIStatusBarAnimation { return .slide }
     
